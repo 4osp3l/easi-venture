@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- crucial viewport for mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Easi Ventures · Crypto & Mobile Transactions</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* RESET + BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f9fcff;
+      color: #0b1e33;
+      line-height: 1.5;
+    }
+
+    /* fluid container — mobile first */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.25rem;  /* smaller gutters on mobile, scales up */
+    }
+
+    /* === TYPOGRAPHY scales down for mobile === */
+    h1 { font-size: clamp(2.2rem, 8vw, 3.8rem); }  
+    h2 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+    h3 { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+
+    /* === flexible images / icons === */
+    i { display: inline-block; }
+
+    /* === NAVBAR (stack on mobile, row on desktop) === */
+    .navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.5rem 0 1rem;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #113255, #1f4a8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+    .logo span {
+      background: none;
+      -webkit-text-fill-color: #1e2f44;
+      font-weight: 400;
+      font-size: 1rem;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .contact-phone-header {
+      background: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px solid #cfdfee;
+      font-weight: 600;
+      color: #113255;
+      font-size: 1.2rem;
+      width: fit-content;
+      margin: 0 auto;
+    }
+    .contact-phone-header i {
+      margin-right: 6px;
+      color: #1f4a8a;
+    }
+
+    /* === HERO — stacked for mobile, row for tablet/desktop === */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      padding: 1rem 0 2.5rem;
+    }
+
+    .hero-content {
+      width: 100%;
+    }
+
+    .hero-badge {
+      background: #dbeafe;
+      color: #113255;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.2rem;
+      border: 1px solid #aac3dd;
+      white-space: nowrap;
+    }
+
+    .hero-content h1 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      word-break: break-word;
+    }
+
+    .hero-highlight {
+      color: #1f4a8a;
+      border-bottom: 2px solid #b3cef0;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: #2a405b;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    /* stats — wrap nicely */
+    .stats-mini {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #113255;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: #4f658b;
+    }
+
+    /* CTA buttons stack on small, row on wider */
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 100%;
+    }
+    .btn-primary, .btn-outline {
+      text-align: center;
+      padding: 0.9rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: none;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .btn-primary {
+      background: #113255;
+      color: white;
+      box-shadow: 0 10px 18px -8px #11325570;
+      border: 1px solid #113255;
+    }
+    .btn-primary:hover { background: #1c3f68; }
+    .btn-outline {
+      background: white;
+      border: 1.5px solid #b9cfec;
+      color: #113255;
+    }
+    .btn-outline:hover { border-color: #1f4a8a; background: #f0f7ff; }
+
+    /* hero visual card — full width on mobile */
+    .hero-visual {
+      background: linear-gradient(145deg, #ffffff, #f2f8ff);
+      border-radius: 2.5rem;
+      padding: 2rem 1.2rem;
+      box-shadow: 0 20px 30px -10px #a5bbd3;
+      border: 1px solid #e2ecf9;
+      width: 100%;
+    }
+
+    .service-icon-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .icon-card {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.2rem 0.5rem;
+      flex: 1 1 100px;
+      min-width: 100px;
+      max-width: 130px;
+      box-shadow: 0 6px 12px -4px #afc6df;
+      border: 1px solid #e2edff;
+      text-align: center;
+    }
+    .icon-card i {
+      font-size: 2rem;
+      background: linear-gradient(45deg, #113255, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+    .icon-card p { font-weight: 700; font-size: 1rem; color: #1e2f44; }
+    .icon-card small { font-size: 0.7rem; color: #4b658b; }
+
+    .trust-badge {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem 1.2rem;
+      color: #2d4a72;
+      font-weight: 500;
+      border-top: 1px dashed #bacfe8;
+      padding-top: 1.2rem;
+      margin-top: 0.8rem;
+    }
+
+    /* ===== SERVICES section ===== */
+    .services-section { padding: 2rem 0 2rem; }
+    .section-header { text-align: center; margin-bottom: 2.5rem; }
+    .section-header h2 { color: #0b1f35; font-weight: 700; }
+    .section-header p { color: #365477; font-size: 1.1rem; }
+
+    .service-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      align-items: center;
+    }
+    .card {
+      background: white;
+      border-radius: 2.5rem;
+      padding: 2rem 1.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 30px -12px #b8cfec;
+      border: 1px solid #e2ecf5;
+    }
+    .card-icon {
+      background: #e1edff;
+      width: 65px;
+      height: 65px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .card-icon i { font-size: 2.2rem; color: #113255; }
+    .card h3 { font-weight: 700; margin-bottom: 0.5rem; color: #0b1f35; }
+    .feature-desc { color: #2f486b; margin-bottom: 1.5rem; }
+    .feature-list { list-style: none; }
+    .feature-list li {
+      margin: 0.8rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 500;
+    }
+    .feature-list i { color: #1f4a8a; width: 1.4rem; }
+
+    /* momo+ strip */
+    .momoplus {
+      background: #ffffff;
+      border-radius: 2.5rem;
+      padding: 2rem 1.5rem;
+      margin: 2rem 0;
+      border: 1px solid #cde0f2;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .momoplus-content h3 { font-size: 1.8rem; font-weight: 700; color: #113255; }
+    .momoplus-icon {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      font-size: 2.2rem;
+      color: #1f4a8a;
+    }
+
+    /* ===== CONTACT block (mobile friendly) ===== */
+    .contact-block {
+      background: #0b1f35;
+      border-radius: 3rem;
+      padding: 2.5rem 1.5rem;
+      color: white;
+      margin: 3rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+    .contact-block h2 { font-size: 2rem; font-weight: 600; }
+    .contact-phone-big {
+      background: #1f3d62;
+      padding: 1rem 1rem;
+      border-radius: 60px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      border: 1px solid #4d7cb0;
+      word-break: break-word;
+      flex-wrap: wrap;
+    }
+    .contact-phone-big i {
+      background: white;
+      color: #0b1f35;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid #cee0f0;
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-legal {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .footer-legal a { text-decoration: none; color: #2d4a72; }
+    .social {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 1.4rem;
+    }
+    .social a { color: #2f4b73; }
+
+    /* last phone line */
+    .phone-footer-note {
+      text-align: center;
+      font-size: 0.9rem;
+      margin: 1rem 0 2rem;
+      color: #4b6f96;
+    }
+
+    /* ===== tablet / desktop upgrades ===== */
+    @media (min-width: 640px) {
+      .container { padding: 0 2rem; }
+      .navbar { flex-direction: row; justify-content: space-between; }
+      .logo span { display: inline; margin-left: 0.3rem; font-size: 1.1rem; }
+      .contact-phone-header { margin: 0; }
+      .hero-cta { flex-direction: row; }
+      .btn-primary, .btn-outline { width: auto; }
+      .service-cards { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .card { max-width: 340px; }
+      .momoplus { flex-direction: row; align-items: center; text-align: left; }
+      .contact-block { flex-direction: row; justify-content: space-between; text-align: left; }
+      .footer { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+
+    @media (min-width: 960px) {
+      .hero { flex-direction: row; align-items: center; }
+      .hero-content { flex: 1.2; }
+      .hero-visual { flex: 0.9; }
+    }
+
+    /* tiny touches */
+    html { scroll-behavior: smooth; }
+    .btn-primary, .btn-outline { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- header -->
+    <div class="navbar">
+      <div class="logo">
+        EASI VENTURES <span>• swift & secure</span>
+      </div>
+      <div class="contact-phone-header">
+        <i class="fas fa-phone-alt"></i> +234 814 862 5156
+      </div>
+    </div>
+
+    <!-- hero (mobile-first column) -->
+    <div class="hero">
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fas fa-bolt"></i> 3,000+ businesses trust us</span>
+        <h1>Crypto & mobile transactions <span class="hero-highlight">instantly</span> with Easi Ventures</h1>
+        <p class="hero-description">Seamless crypto exchange and mobile money ( MoMo ).</p>
+        <div class="stats-mini">
+          <div><span class="stat-number">₿50+</span> <span class="stat-label">crypto pairs</span></div>
+          <div><span class="stat-number">₦2B+</span> <span class="stat-label">MoMo processed</span></div>
+        </div>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});"><i class="fas fa-phone"></i> +234 814 862 5156</button>
+          <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'});"><i class="fas fa-list"></i> our services</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="service-icon-grid">
+          <div class="icon-card">
+            <i class="fab fa-bitcoin"></i>
+            <p>Crypto</p>
+            <small>BTC, ETH, USDT</small>
+          </div>
+          <div class="icon-card">
+            <i class="fas fa-mobile-alt"></i>
+            <p>MoMo</p>
+            <small>MTN, Airtel, Voda</small>
+          </div>
+          <div class="icon-card">
+            <i class="fas fa-wallet"></i>
+            <p>Cash‑out</p>
+            <small>bank / mobile</small>
+          </div>
+        </div>
+        <div class="trust-badge">
+          <i class="fas fa-shield-alt"></i> 100% insured
+          <i class="fas fa-clock"></i> 24/7
+          <i class="fas fa-headset"></i> support
+        </div>
+        <p style="margin-top: 1rem; color:#254a77;"><i class="fas fa-check-circle" style="color:#059669;"></i> MoMo (Mobile Money) & P2P</p>
+      </div>
+    </div>
+
+    <!-- services anchor -->
+    <div id="services"></div>
+    <div class="services-section">
+      <div class="section-header">
+        <h2>Core Offerings</h2>
+        <p>Crypto Exchange + Mobile Money, Under One Roof</p>
+      </div>
+
+      <div class="service-cards">
+        <!-- crypto card -->
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-coins"></i></div>
+          <h3>Crypto Exchange</h3>
+          <p class="feature-desc">Buy, sell, swap at true market rates.</p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> BTC, ETH, USDT, BNB</li>
+            <li><i class="fas fa-check-circle"></i> instant naira settlement</li>
+            <li><i class="fas fa-check-circle"></i> best bid/ask spread</li>
+            <li><i class="fas fa-check-circle"></i> wallet‑to‑wallet</li>
+          </ul>
+        </div>
+
+        <!-- mobile transactions card (includes MoMo) -->
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-mobile-screen-button"></i></div>
+          <h3>Mobile <br>Transactions</h3>
+          <p class="feature-desc">MoMo & airtime, bills, cash‑in/out.</p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> MTN MoMo, Vodafone Cash</li>
+            <li><i class="fas fa-check-circle"></i> AirtelTigo / G-Money</li>
+            <li><i class="fas fa-check-circle"></i> cash‑in / cash‑out agents</li>
+            <li><i class="fas fa-check-circle"></i> buy data, pay utilities</li>
+          </ul>
+        </div>
+
+        <!-- combined card -->
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-arrow-right-arrow-left"></i></div>
+          <h3>Crypto <> MoMo</h3>
+          <p class="feature-desc">Direct crypto to mobile money.</p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> BTC → MoMo in minutes</li>
+            <li><i class="fas fa-check-circle"></i> USDT → Airtel / MTN</li>
+            <li><i class="fas fa-check-circle"></i> zero hidden fees</li>
+            <li><i class="fas fa-check-circle"></i> 0.5% cashback</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MoMo extra -->
+      
+    </div>
+
+    <!-- contact block (anchor) -->
+    <div id="contact"></div>
+    <div class="contact-block">
+      <div>
+        <h2>Talk to us now</h2>
+        <p style="opacity:0.9;">One call handles it all — crypto or mobile money</p>
+      </div>
+      <div class="contact-phone-big">
+        <i class="fas fa-phone"></i> +234 814 862 5156
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+      <div>© 2026 Easi Ventures — Crypto & Mobile</div>
+      <div class="footer-legal">
+        <a href="#">privacy</a>
+        <a href="#">terms</a>
+        <a href="#contact">+234 814 862 5156</a>
+      </div>
+      <div class="social">
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+
+    <!-- extra phone line -->
+    <div class="phone-footer-note">
+      <i class="fas fa-phone"></i> +234 814 862 5156  ·  customer support 24/7
+    </div>
+  </div>
+</body>
+</html>
